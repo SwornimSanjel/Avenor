@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import Container from "../Container";
 import SectionHeading from "../SectionHeading";
+import ScrollReveal from "../ScrollReveal";
 
 /**
  * Illustrative AI demo — a Messenger-style conversation that visibly flows into
@@ -44,8 +45,20 @@ export default function WorkflowDemo() {
   ];
 
   return (
-    <section id="demo" className="relative scroll-mt-24 overflow-hidden bg-ink py-24 md:py-32">
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-[0.25]" />
+    <section
+      id="demo"
+      className="relative scroll-mt-24 overflow-hidden bg-[radial-gradient(125%_120%_at_50%_-10%,#0f1838_0%,#0a1024_42%,#06070f_100%)] py-28 md:py-40"
+    >
+      {/* the one brighter, electric-blue "spotlight" section of the site */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-[0.22]" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-accent/12 blur-[150px]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
+      />
       <Container className="relative">
         <SectionHeading
           eyebrow="Live demo"
@@ -58,7 +71,7 @@ export default function WorkflowDemo() {
           className="mx-auto mt-14 grid max-w-5xl items-start gap-6 lg:grid-cols-[1.05fr_0.95fr]"
         >
           {/* Chat panel */}
-          <div className="glass relative flex flex-col rounded-2xl shadow-card">
+          <ScrollReveal className="glass relative flex flex-col rounded-2xl shadow-card">
             <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
               <div className="flex items-center gap-2">
                 <span className="h-2.5 w-2.5 rounded-full bg-accent/70" />
@@ -101,10 +114,10 @@ export default function WorkflowDemo() {
                 and timings shortly.
               </ChatBubble>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* System side panel */}
-          <div className="flex flex-col gap-4">
+          <ScrollReveal delay={0.1} className="flex flex-col gap-4">
             {/* CRM card */}
             <div className="glass rounded-2xl p-5 shadow-card">
               <div className="mb-3 flex items-center justify-between">
@@ -114,7 +127,7 @@ export default function WorkflowDemo() {
                 <motion.span
                   animate={{ opacity: at(5) ? 1 : 0, scale: at(5) ? 1 : 0.8 }}
                   transition={{ duration: 0.25 }}
-                  className="rounded-full bg-iris/20 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-iris-glow"
+                  className="rounded-full bg-gold/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wide text-gold-glow"
                 >
                   ● Hot
                 </motion.span>
@@ -139,12 +152,12 @@ export default function WorkflowDemo() {
             <motion.div
               animate={{
                 opacity: at(6) ? 1 : 0.3,
-                borderColor: at(6) ? "rgba(139,92,246,0.5)" : "rgba(255,255,255,0.1)",
+                borderColor: at(6) ? "rgba(224,169,95,0.5)" : "rgba(255,255,255,0.1)",
               }}
               transition={{ duration: 0.3 }}
               className="flex items-center gap-3 rounded-2xl border bg-panel/60 p-4 backdrop-blur-sm"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-iris/20 text-iris-glow">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold-glow">
                 !
               </span>
               <div>
@@ -177,7 +190,7 @@ export default function WorkflowDemo() {
                 </div>
               ))}
             </motion.div>
-          </div>
+          </ScrollReveal>
         </div>
       </Container>
     </section>

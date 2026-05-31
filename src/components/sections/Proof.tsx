@@ -4,13 +4,17 @@ import Image from "next/image";
 import Container from "../Container";
 import SectionHeading from "../SectionHeading";
 import ScrollReveal from "../ScrollReveal";
+import LogoMarquee from "../LogoMarquee";
+import CountUp from "../CountUp";
 import Mark from "../Mark";
 
-/* ── Block A · Capability targets — DESIGN GOALS, not measured client results ─ */
-const capabilities = [
-  { figure: "Under 60 seconds", sub: "Target first-reply time, day or night." },
-  { figure: "100% logged", sub: "Every inquiry captured to your CRM automatically." },
-  { figure: "24 / 7", sub: "Coverage while your team is offline or asleep." },
+/* ── Block A · Capability targets — DESIGN GOALS, not measured client results.
+   Figures count up from 0 → target when scrolled into view. ─ */
+type Capability = { lead?: string; to: number; suffix: string; sub: string };
+const capabilities: Capability[] = [
+  { lead: "Under ", to: 60, suffix: "s", sub: "Target first-reply time, day or night." },
+  { to: 100, suffix: "%", sub: "Every inquiry captured to your CRM automatically." },
+  { to: 24, suffix: " / 7", sub: "Coverage while your team is offline or asleep." },
 ];
 
 /* Demo systems Avenor has built (illustrative — not client data). */
@@ -48,8 +52,6 @@ function TestimonialCard({ t }: { t: Testimonial }) {
     </figure>
   );
 }
-
-const platforms = ["OpenAI", "Meta", "Google", "WhatsApp"];
 
 function Badge({ children }: { children: React.ReactNode }) {
   return (
@@ -91,7 +93,7 @@ function DemoShot({ src, alt, label }: { src: string; alt: string; label: string
 
 export default function Proof() {
   return (
-    <section id="proof" className="scroll-mt-24 bg-navy-deep py-24 md:py-32">
+    <section id="proof" className="scroll-mt-24 bg-navy-deep py-28 md:py-40">
       <Container>
         <SectionHeading
           eyebrow="Proof"
@@ -113,15 +115,14 @@ export default function Proof() {
 
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
           {capabilities.map((c, i) => (
-            <ScrollReveal
-              key={c.figure}
-              delay={i * 0.08}
-              className="rounded-2xl border border-white/10 bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40"
-            >
-              <p className="font-display text-3xl font-bold text-accent-glow sm:text-[2rem]">
-                {c.figure}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-slate">{c.sub}</p>
+            <ScrollReveal key={c.sub} delay={i * 0.08} className="h-full">
+              <div className="h-full rounded-2xl border border-white/10 bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40">
+                <p className="font-display text-3xl font-bold text-accent-glow sm:text-[2rem]">
+                  {c.lead}
+                  <CountUp to={c.to} suffix={c.suffix} duration={1200} />
+                </p>
+                <p className="mt-2 text-sm leading-relaxed text-slate">{c.sub}</p>
+              </div>
             </ScrollReveal>
           ))}
         </div>
@@ -211,24 +212,15 @@ export default function Proof() {
             ))}
           </div>
         )}
-
-        {/* Technology band */}
-        <div className="mt-16 flex flex-col items-center gap-6 border-t border-white/10 pt-12">
-          <p className="text-center text-xs font-medium uppercase tracking-[0.3em] text-slate/80">
-            Built on technology you already trust
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 sm:gap-x-14">
-            {platforms.map((name) => (
-              <span
-                key={name}
-                className="font-display text-lg font-semibold tracking-tight text-slate/60 transition-colors duration-200 hover:text-silver sm:text-xl"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
       </Container>
+
+      {/* Technology band — full-bleed, edge-to-edge marquee with top/bottom hairlines only */}
+      <div className="mt-20 border-y border-white/10 py-12 md:mt-28 md:py-14">
+        <p className="mb-9 text-center text-xs font-medium uppercase tracking-[0.3em] text-slate/80">
+          Built on technology you already trust
+        </p>
+        <LogoMarquee />
+      </div>
     </section>
   );
 }

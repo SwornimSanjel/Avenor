@@ -1,13 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Container from "../Container";
 import SectionHeading from "../SectionHeading";
+import ScrollReveal from "../ScrollReveal";
 import { flowSteps } from "@/lib/content";
 
 export default function SystemFlow() {
   return (
-    <section id="system" className="relative scroll-mt-24 overflow-hidden bg-ink py-24 md:py-32">
+    <section id="system" className="relative scroll-mt-24 overflow-hidden bg-ink py-28 md:py-40">
       <div
         aria-hidden
         className="pointer-events-none absolute right-0 top-1/3 h-[420px] w-[420px] rounded-full bg-iris/10 blur-[150px]"
@@ -21,14 +21,7 @@ export default function SystemFlow() {
 
         <div className="relative mt-16 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
           {flowSteps.map((step, i) => (
-            <motion.div
-              key={step.step}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
-              className="group relative"
-            >
+            <ScrollReveal key={step.step} delay={(i % 3) * 0.1} className="group relative">
               {/* connector to next step (desktop) */}
               {i < flowSteps.length - 1 && (i + 1) % 3 !== 0 && (
                 <span
@@ -56,7 +49,7 @@ export default function SystemFlow() {
                   <p className="text-sm leading-relaxed text-silver">{step.benefit}</p>
                 </div>
               </div>
-            </motion.div>
+            </ScrollReveal>
           ))}
         </div>
       </Container>

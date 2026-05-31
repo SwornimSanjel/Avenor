@@ -29,7 +29,7 @@ function LinkedIn({ url, name }: { url?: string; name: string }) {
 
 export default function Team() {
   return (
-    <section className="bg-ink py-24 md:py-32">
+    <section className="bg-ink py-28 md:py-40">
       <Container>
         <SectionHeading
           eyebrow="Core team"
@@ -39,16 +39,15 @@ export default function Team() {
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {founders.map((person, i) => (
-            <ScrollReveal
-              key={person.name}
-              delay={i * 0.08}
-              className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 ${
-                person.featured
-                  ? "border-accent/30 shadow-glow hover:border-accent/50"
-                  : "border-white/10 hover:border-accent/40"
-              }`}
-            >
-              {person.featured && (
+            <ScrollReveal key={person.name} delay={i * 0.08} className="h-full">
+              <div
+                className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 ${
+                  person.featured
+                    ? "border-accent/30 shadow-glow hover:border-accent/50"
+                    : "border-white/10 hover:border-accent/40"
+                }`}
+              >
+                {person.featured && (
                 <span
                   aria-hidden
                   className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-iris/15 blur-[60px]"
@@ -81,11 +80,12 @@ export default function Team() {
 
               <p className="relative flex-1 text-sm leading-relaxed text-slate">{person.focus}</p>
 
-              {person.linkedin && (
-                <div className="relative mt-5">
-                  <LinkedIn url={person.linkedin} name={person.name} />
-                </div>
-              )}
+                {person.linkedin && (
+                  <div className="relative mt-5">
+                    <LinkedIn url={person.linkedin} name={person.name} />
+                  </div>
+                )}
+              </div>
             </ScrollReveal>
           ))}
         </div>

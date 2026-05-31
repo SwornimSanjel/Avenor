@@ -5,38 +5,34 @@ import { motion, useReducedMotion } from "framer-motion";
 import { ReactNode } from "react";
 
 /**
- * Premium animated "inquiry pipeline" dashboard for the hero.
+ * Premium "inquiry pipeline" dashboard for the hero.
  *
- * The line draws left → right, nodes appear in sequence, labels fade in, and
- * the final node pulses. Labels are SVG <text> inside the viewBox (with right
- * padding past the last node) so they can never clip the card edge. Floating
- * cards animate as whole units — border, background and content move together.
- *
- * `startDelay` lets the hero hold the animation until the intro preloader has
- * lifted, so the draw is actually visible on first load.
+ * A clean horizontal rail with six labelled stations (Inquiry → Report). The
+ * rail draws left → right, the stations fade in, a soft signal pulse travels
+ * the rail, and one station pulses. Labels are SVG <text> inside the viewBox so
+ * they never clip. Floating glass cards compose around it.
  */
 
-const W = 720;
-const H = 420;
+const W = 880;
+const H = 280;
+const RAIL = 118; // y of the horizontal rail
 
-type Node = { x: number; y: number; label: string; sub: string; hot?: boolean };
+type Node = { x: number; label: string; sub: string; hot?: boolean };
 
-// Nodes sit on a clean, slightly-rising diagonal with a very subtle ease toward
-// "Report" (steps soften from 56 → 44). It reads as a controlled workflow path,
-// not a flat line and not a jagged growth chart.
 const nodes: Node[] = [
-  { x: 60, y: 348, label: "Inquiry", sub: "message received" },
-  { x: 168, y: 292, label: "Reply", sub: "auto reply ready" },
-  { x: 276, y: 238, label: "Captured", sub: "saved to CRM" },
-  { x: 384, y: 188, label: "Qualified", sub: "intent checked" },
-  { x: 492, y: 140, label: "Follow-up", sub: "priority set", hot: true },
-  { x: 600, y: 96, label: "Report", sub: "owner view" },
+  { x: 90, label: "Inquiry", sub: "message in" },
+  { x: 230, label: "Reply", sub: "auto reply" },
+  { x: 370, label: "Captured", sub: "saved to CRM" },
+  { x: 510, label: "Qualified", sub: "intent checked" },
+  { x: 650, label: "Follow-up", sub: "priority set", hot: true },
+  { x: 790, label: "Report", sub: "owner view" },
 ];
 
-// Smooth, monotonic path (control points stay between adjacent nodes, so the
-// line never bulges or dips — clean and operational).
-const linePath =
-  "M60 348 C 100 327, 128 313, 168 292 S 236 258, 276 238 S 344 207, 384 188 S 452 158, 492 140 S 560 112, 600 96";
+// A gentle, symmetric signal wave that passes level through every station
+// (no upward "growth chart" rise) — reads as a live signal flowing down the
+// pipeline. The pulse + drawn line both follow this path.
+const railPath =
+  "M90 118 Q160 96 230 118 Q300 140 370 118 Q440 96 510 118 Q580 140 650 118 Q720 96 790 118";
 
 export default function SignalGraph({
   className = "",
@@ -57,20 +53,21 @@ export default function SignalGraph({
     return () => window.clearTimeout(t);
   }, [reduce, startDelay]);
 
-  // duration helper (0 when reduced motion)
   const dur = (s: number) => (reduce ? 0 : s);
 
   return (
     <div className={`relative ${className}`}>
-      {/* radial glow behind the dashboard */}
+      {/* soft radial glow behind the dashboard */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -inset-10 -z-10 rounded-[40px] bg-[radial-gradient(60%_60%_at_60%_40%,rgba(139,92,246,0.18),transparent_70%)]"
+        className="pointer-events-none absolute -inset-10 -z-10 rounded-[40px] bg-[radial-gradient(55%_60%_at_50%_45%,rgba(96,130,246,0.16),transparent_70%)]"
       />
 
       {/* main graph card */}
       <div className="glass relative overflow-hidden rounded-2xl shadow-card">
-        <div className="flex items-center justify-between border-b border-white/10 px-5 py-3">
+        {/* faint glass sheen for depth */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 bg-panel-grad" />
+        <div className="relative flex items-center justify-between border-b border-white/10 px-5 py-3.5">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-accent/80" />
             <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate">
@@ -83,131 +80,115 @@ export default function SignalGraph({
           </span>
         </div>
 
-        <div className="px-3 py-3">
+        <div className="relative px-4 py-5 sm:px-6">
           <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Animated inquiry pipeline flow">
             <defs>
-              <linearGradient id="sigStroke" x1="0" y1="1" x2="1" y2="0">
+              <linearGradient id="sigStroke" x1="0" y1="0" x2="1" y2="0">
                 <stop offset="0" stopColor="#3B82F6" />
                 <stop offset="0.55" stopColor="#6366F1" />
                 <stop offset="1" stopColor="#8B5CF6" />
               </linearGradient>
-              <linearGradient id="sigArea" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#3B82F6" stopOpacity="0.22" />
-                <stop offset="1" stopColor="#3B82F6" stopOpacity="0" />
-              </linearGradient>
-              <filter id="sigGlow" x="-30%" y="-30%" width="160%" height="160%">
-                <feGaussianBlur stdDeviation="5" />
+              <filter id="sigGlow" x="-10%" y="-200%" width="120%" height="500%">
+                <feGaussianBlur stdDeviation="6" />
               </filter>
             </defs>
 
-            {/* dashed axis grid — present immediately so the panel never looks blank */}
-            <g stroke="rgba(255,255,255,0.06)" strokeWidth="1" strokeDasharray="2 7">
-              {[90, 175, 260, 345].map((y) => (
-                <line key={y} x1="0" y1={y} x2={W} y2={y} />
-              ))}
-            </g>
-            <g stroke="rgba(255,255,255,0.04)" strokeWidth="1">
-              {[180, 360, 540].map((x) => (
-                <line key={x} x1={x} y1="0" x2={x} y2={H} />
-              ))}
-            </g>
-
-            {/* area under the line */}
-            <motion.path
-              d={`${linePath} L600 ${H} L60 ${H} Z`}
-              fill="url(#sigArea)"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: play ? 1 : 0 }}
-              transition={{ duration: dur(0.9), delay: dur(1.1) }}
+            {/* static base rail — present immediately so the panel never looks blank */}
+            <path
+              d={railPath}
+              fill="none"
+              stroke="rgba(255,255,255,0.08)"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
 
-            {/* soft glow under the line */}
+            {/* soft glow under the rail */}
             <motion.path
-              d={linePath}
+              d={railPath}
               fill="none"
               stroke="url(#sigStroke)"
-              strokeWidth="6"
+              strokeWidth="9"
               strokeLinecap="round"
               filter="url(#sigGlow)"
-              opacity="0.45"
+              opacity="0.4"
               initial={{ pathLength: reduce ? 1 : 0 }}
               animate={{ pathLength: play ? 1 : 0 }}
-              transition={{ duration: dur(1.8), ease: "easeInOut" }}
+              transition={{ duration: dur(1.6), ease: "easeInOut" }}
             />
 
-            {/* crisp signal line */}
+            {/* crisp rail */}
             <motion.path
-              d={linePath}
+              d={railPath}
               fill="none"
               stroke="url(#sigStroke)"
               strokeWidth="2.5"
               strokeLinecap="round"
               initial={{ pathLength: reduce ? 1 : 0 }}
               animate={{ pathLength: play ? 1 : 0 }}
-              transition={{ duration: dur(1.8), ease: "easeInOut" }}
+              transition={{ duration: dur(1.6), ease: "easeInOut" }}
             />
 
-            {/* live signal pulse travelling the path (real-time feel) */}
+            {/* live signal pulse travelling the rail */}
             {play && !reduce && (
               <g>
-                <circle r="11" fill="#A78BFA" opacity="0.22">
-                  <animateMotion dur="4.5s" begin="0.6s" repeatCount="indefinite" path={linePath} />
+                <circle r="10" fill="#A78BFA" opacity="0.25">
+                  <animateMotion dur="4.5s" begin="0.6s" repeatCount="indefinite" path={railPath} />
                 </circle>
                 <circle r="4" fill="#A78BFA">
-                  <animateMotion dur="4.5s" begin="0.6s" repeatCount="indefinite" path={linePath} />
+                  <animateMotion dur="4.5s" begin="0.6s" repeatCount="indefinite" path={railPath} />
                 </circle>
               </g>
             )}
 
-            {/* axis labels — present immediately so the panel reads as live from frame 1 */}
+            {/* labels — present immediately so the panel reads as live from frame 1 */}
             <g>
               {nodes.map((n) => (
                 <g key={n.label}>
-                  <text x={n.x} y={n.y + 30} textAnchor="middle" fill="#ECEEF4" fontSize="14" fontWeight="600">
+                  <text x={n.x} y={RAIL + 34} textAnchor="middle" fill="#ECEEF4" fontSize="14" fontWeight="600">
                     {n.label}
                   </text>
-                  <text x={n.x} y={n.y + 48} textAnchor="middle" fill="#8A90A3" fontSize="12">
+                  <text x={n.x} y={RAIL + 52} textAnchor="middle" fill="#8A90A3" fontSize="12">
                     {n.sub}
                   </text>
                 </g>
               ))}
             </g>
 
-            {/* data points — draw in on top of the already-present structure */}
+            {/* stations — draw in on top of the already-present rail */}
             {nodes.map((n, i) => (
               <motion.g
                 key={n.label}
                 initial={{ opacity: reduce ? 1 : 0 }}
                 animate={{ opacity: play ? 1 : 0 }}
-                transition={{ duration: 0.4, delay: dur(0.5 + i * 0.28) }}
+                transition={{ duration: 0.4, delay: dur(0.4 + i * 0.18) }}
               >
-                {/* pulse ring on the final node */}
-                {n.label === "Report" && !reduce && play && (
+                {n.hot && !reduce && play && (
                   <motion.circle
                     cx={n.x}
-                    cy={n.y}
-                    r="6"
+                    cy={RAIL}
+                    r="7"
                     fill="none"
-                    stroke="#8B5CF6"
+                    stroke="#E0A95F"
                     strokeWidth="1.5"
-                    initial={{ scale: 1, opacity: 0.7 }}
-                    animate={{ scale: [1, 2.4], opacity: [0.7, 0] }}
-                    transition={{ duration: 1.8, repeat: Infinity, delay: 2.2, ease: "easeOut" }}
+                    initial={{ scale: 1, opacity: 0.8 }}
+                    animate={{ scale: [1, 2.6], opacity: [0.8, 0] }}
+                    transition={{ duration: 1.9, repeat: Infinity, delay: 1.6, ease: "easeOut" }}
                     style={
-                      { transformOrigin: `${n.x}px ${n.y}px`, transformBox: "fill-box" } as React.CSSProperties
+                      { transformOrigin: `${n.x}px ${RAIL}px`, transformBox: "fill-box" } as React.CSSProperties
                     }
                   />
                 )}
-                <circle cx={n.x} cy={n.y} r="11" fill={n.hot ? "#8B5CF6" : "#3B82F6"} opacity="0.16" />
-                <circle cx={n.x} cy={n.y} r="4.5" fill={n.hot ? "#A78BFA" : "#60A5FA"} />
+                {/* Warm focal point: the priority/hot station glows gold against the cool rail. */}
+                <circle cx={n.x} cy={RAIL} r="13" fill={n.hot ? "#E0A95F" : "#3B82F6"} opacity={n.hot ? 0.2 : 0.16} />
+                <circle cx={n.x} cy={RAIL} r="5" fill={n.hot ? "#F2C886" : "#60A5FA"} />
                 <circle
                   cx={n.x}
-                  cy={n.y}
-                  r="4.5"
+                  cy={RAIL}
+                  r="5"
                   fill="none"
-                  stroke={n.hot ? "#A78BFA" : "#60A5FA"}
-                  strokeOpacity="0.45"
-                  strokeWidth="1"
+                  stroke={n.hot ? "#F2C886" : "#60A5FA"}
+                  strokeOpacity="0.55"
+                  strokeWidth="1.5"
                 />
               </motion.g>
             ))}
@@ -215,20 +196,17 @@ export default function SignalGraph({
         </div>
       </div>
 
-      {/* floating dashboard cards (each animates as one unit) — sit below the
-          header so they never cover the "Inquiry pipeline · live view" title */}
-      <FloatCard
-        className="left-3 top-[72px] sm:left-5"
-        delay={dur(1.2)}
-        play={play}      >
+      {/* floating dashboard cards (sit below the header so they never cover the title) */}
+      <FloatCard className="left-3 top-[72px] sm:left-5" delay={dur(1.0)} play={play}>
         <span className="h-1.5 w-1.5 rounded-full bg-accent-glow" />
         <span className="text-xs text-silver">24/7 auto reply ready</span>
       </FloatCard>
 
       <FloatCard
-        className="left-3 top-[112px] sm:left-5 sm:top-[128px]"
-        delay={dur(1.7)}
-        play={play}      >
+        className="left-3 top-[120px] sm:left-5 sm:top-[124px]"
+        delay={dur(1.4)}
+        play={play}
+      >
         <span className="flex h-5 w-5 items-center justify-center rounded-md bg-accent/15 text-[10px] text-accent-glow">
           ✓
         </span>
@@ -237,12 +215,8 @@ export default function SignalGraph({
         </span>
       </FloatCard>
 
-      <FloatCard
-        className="bottom-6 right-3 sm:right-5"
-        delay={dur(2.2)}
-        play={play}        accent="iris"
-      >
-        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-iris/20 text-iris-glow">
+      <FloatCard className="bottom-5 right-3 sm:right-5" delay={dur(1.8)} play={play} accent="gold">
+        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gold/15 text-gold-glow">
           !
         </span>
         <span className="flex flex-col">
@@ -265,12 +239,11 @@ function FloatCard({
   className: string;
   delay: number;
   play: boolean;
-  accent?: "accent" | "iris";
+  accent?: "accent" | "iris" | "gold";
 }) {
-  const border = accent === "iris" ? "border-iris/30" : "border-white/[0.12]";
+  const border =
+    accent === "iris" ? "border-iris/30" : accent === "gold" ? "border-gold/35" : "border-white/[0.12]";
   return (
-    // Static position. The card fades/scales in once on reveal, then stays
-    // anchored — no continuous float, so it never drifts while scrolling.
     <div className={`absolute z-10 ${className}`}>
       <motion.div
         className={`flex items-center gap-2 rounded-xl border ${border} bg-panel/90 px-3 py-2 shadow-card backdrop-blur-md`}

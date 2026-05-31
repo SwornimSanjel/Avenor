@@ -4,13 +4,14 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Container from "../Container";
 import SectionHeading from "../SectionHeading";
+import ScrollReveal from "../ScrollReveal";
 import { faqs } from "@/lib/content";
 
 export default function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="scroll-mt-24 bg-navy-deep py-24 md:py-32">
+    <section id="faq" className="scroll-mt-24 bg-navy-deep py-28 md:py-40">
       <Container>
         <SectionHeading
           eyebrow="Questions"
@@ -21,7 +22,7 @@ export default function Faq() {
           {faqs.map((faq, i) => {
             const isOpen = open === i;
             return (
-              <div key={faq.question} className="border-b border-white/10">
+              <ScrollReveal key={faq.question} delay={(i % 6) * 0.05} className="border-b border-white/10">
                 <button
                   type="button"
                   onClick={() => setOpen(isOpen ? null : i)}
@@ -55,7 +56,7 @@ export default function Faq() {
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </ScrollReveal>
             );
           })}
         </div>

@@ -68,7 +68,7 @@ export default function Contact() {
   const labelClass = "mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate";
 
   return (
-    <section id="contact" className="scroll-mt-24 bg-navy-deep py-24 md:py-32">
+    <section id="contact" className="scroll-mt-24 bg-navy-deep py-28 md:py-40">
       <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
         <ScrollReveal className="flex flex-col gap-6">
           <span className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">

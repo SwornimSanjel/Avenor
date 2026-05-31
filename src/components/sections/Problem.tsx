@@ -20,7 +20,7 @@ const withAvenor = [
 
 export default function Problem() {
   return (
-    <section className="bg-navy-deep py-24 md:py-32">
+    <section className="bg-navy-deep py-28 md:py-40">
       <Container>
         <SectionHeading
           eyebrow="Where growth leaks"

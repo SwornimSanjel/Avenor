@@ -35,6 +35,12 @@ const config: Config = {
           DEFAULT: "#8B5CF6", // midnight violet
           glow: "#A78BFA",
         },
+        // Warm secondary — used sparingly for "priority / hot / human attention".
+        // Cool blue/violet = the system; warm gold = the moments that matter.
+        gold: {
+          DEFAULT: "#E0A95F", // refined champagne amber
+          glow: "#F2C886",
+        },
         line: "rgba(255,255,255,0.08)",
       },
       fontFamily: {
@@ -42,11 +48,12 @@ const config: Config = {
         sans: ["var(--font-hanken)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       maxWidth: {
-        container: "1200px",
+        container: "1280px",
       },
       boxShadow: {
         glow: "0 0 80px -22px rgba(59, 130, 246, 0.5)",
         "glow-iris": "0 0 80px -22px rgba(139, 92, 246, 0.45)",
+        "glow-gold": "0 18px 60px -30px rgba(224, 169, 95, 0.5)",
         card: "0 26px 70px -30px rgba(0, 0, 0, 0.8)",
       },
       backgroundImage: {
@@ -67,11 +74,16 @@ const config: Config = {
           "0%": { transform: "translateX(-120%)" },
           "100%": { transform: "translateX(120%)" },
         },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.6s ease-out both",
         node: "pulseNode 2.6s ease-in-out infinite",
         sweep: "sweep 3.5s linear infinite",
+        marquee: "marquee 30s linear infinite",
       },
     },
   },
