@@ -51,7 +51,10 @@ export default function Navbar() {
         never samples the page and the bar reads as a solid block.
       */}
       <motion.header
-        initial={false}
+        // On first load, enter from above using the SAME hidden→visible motion
+        // the scroll behavior already uses (transition below). Skipped under
+        // reduced motion, where the bar simply renders in place.
+        initial={reduce ? false : { y: "-150%", opacity: 0 }}
         animate={{ y: isHidden ? "-150%" : 0, opacity: isHidden ? 0 : 1 }}
         transition={{ duration: 0.35, ease: "easeOut" }}
         className={`fixed left-4 right-4 top-3 z-50 mx-auto flex max-w-6xl items-center justify-between gap-6 rounded-full border py-2 pl-5 pr-2 backdrop-blur-2xl backdrop-saturate-150 transition-colors duration-300 sm:left-6 sm:right-6 sm:top-4 sm:pl-7 sm:pr-2.5 ${
