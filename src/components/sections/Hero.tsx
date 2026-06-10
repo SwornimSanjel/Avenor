@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import Container from "../Container";
 import { LinkButton } from "../Button";
 import AiInbox from "../AiInbox";
+import GridPulse from "../GridPulse";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -16,6 +17,7 @@ export default function Hero() {
     <section className="relative min-h-[100svh] overflow-hidden bg-obsidian">
       {/* background: faint grid + two capped radial glows */}
       <div aria-hidden className="pointer-events-none absolute inset-0 bg-grid opacity-[0.35]" />
+      <GridPulse className="opacity-60" />
       <div
         aria-hidden
         className="pointer-events-none absolute right-[-10%] top-[6%] h-[520px] w-[560px] rounded-full bg-iris/12 blur-[150px]"

@@ -7,6 +7,7 @@ import LogoMarquee from "../LogoMarquee";
 import CountUp from "../CountUp";
 import Mark from "../Mark";
 import BrowserFrame from "../BrowserFrame";
+import GridPulse from "../GridPulse";
 
 /* ── Block A · Capability targets — DESIGN GOALS, not measured client results.
    Figures count up from 0 → target when scrolled into view. ─ */
@@ -69,8 +70,9 @@ function Badge({ children }: { children: React.ReactNode }) {
 
 export default function Proof() {
   return (
-    <section id="proof" className="scroll-mt-24 bg-navy-deep py-28 md:py-40">
-      <Container>
+    <section id="proof" className="relative scroll-mt-24 overflow-hidden bg-navy-deep py-28 md:py-40">
+      <GridPulse className="opacity-40" />
+      <Container className="relative">
         <SectionHeading
           eyebrow="Proof"
           title="Built and working."
@@ -92,7 +94,7 @@ export default function Proof() {
         <div className="mt-6 grid gap-6 sm:grid-cols-3">
           {capabilities.map((c, i) => (
             <ScrollReveal key={c.sub} delay={i * 0.08} className="h-full">
-              <div className="h-full rounded-2xl border border-white/10 bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40">
+              <div className="border-sweep h-full rounded-2xl border border-white/10 bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40">
                 <p className="font-display text-3xl font-bold text-accent-glow sm:text-[2rem]">
                   {c.lead}
                   <CountUp to={c.to} suffix={c.suffix} duration={1200} />

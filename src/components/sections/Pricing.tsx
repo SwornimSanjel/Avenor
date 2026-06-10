@@ -24,7 +24,7 @@ export default function Pricing() {
           {packages.map((pkg, i) => (
             <ScrollReveal key={pkg.id} delay={i * 0.1} className="h-full">
               <div
-                className={`relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-200 hover:-translate-y-1 ${
+                className={`border-sweep relative flex h-full flex-col rounded-2xl border p-8 transition-all duration-200 hover:-translate-y-1 ${
                   pkg.featured
                     ? "border-accent/50 bg-panel-light shadow-glow hover:border-accent/70 lg:z-10 lg:scale-[1.04]"
                     : "border-white/10 bg-panel/40 hover:border-accent/40"

@@ -65,7 +65,7 @@ export default function Industries() {
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {industries.map((industry, i) => (
             <ScrollReveal key={industry.name} delay={(i % 3) * 0.08} className="h-full">
-              <div className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-panel/40 p-7 transition-all duration-200 hover:-translate-y-1 hover:border-gold/30 hover:shadow-glow-gold">
+              <div className="border-sweep group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-panel/40 p-7 transition-all duration-200 hover:-translate-y-1 hover:border-gold/30 hover:shadow-glow-gold">
                 {/* subtle surface sheen on hover */}
                 <span
                   aria-hidden
