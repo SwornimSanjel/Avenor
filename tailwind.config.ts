@@ -78,12 +78,17 @@ const config: Config = {
           "0%": { transform: "translateX(0)" },
           "100%": { transform: "translateX(-50%)" },
         },
+        typing: {
+          "0%, 80%, 100%": { transform: "translateY(0)", opacity: "0.35" },
+          "40%": { transform: "translateY(-3px)", opacity: "1" },
+        },
       },
       animation: {
         "fade-up": "fade-up 0.6s ease-out both",
         node: "pulseNode 2.6s ease-in-out infinite",
         sweep: "sweep 3.5s linear infinite",
         marquee: "marquee 30s linear infinite",
+        typing: "typing 1.2s ease-in-out infinite",
       },
     },
   },

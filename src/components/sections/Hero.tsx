@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Container from "../Container";
 import { LinkButton } from "../Button";
-import SignalGraph from "../SignalGraph";
+import AiInbox from "../AiInbox";
 
 const fadeUp = {
   initial: { opacity: 0, y: 16 },
@@ -98,8 +98,8 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
           className="mt-24 w-full max-w-5xl md:mt-32"
         >
-          {/* Panel structure shows immediately; the data line draws in shortly after. */}
-          <SignalGraph startDelay={400} />
+          {/* Looping AI inbox mockup — shows the product doing its job. */}
+          <AiInbox />
         </motion.div>
       </Container>
 
