@@ -18,6 +18,13 @@ const withAvernik = [
   "Every step is tracked and reported",
 ];
 
+// Capability chips — moved here from the hero to keep the hero lean.
+const capabilities = [
+  "First reply in under 60s",
+  "Web, SMS, Facebook & Instagram",
+  "Synced to your CRM",
+];
+
 export default function Problem() {
   return (
     <section className="bg-navy-deep py-28 md:py-40">
@@ -27,6 +34,19 @@ export default function Problem() {
           title="The deal is usually lost before sales ever sees it."
           description="Customers message at night, on weekends, and long after you have closed. If the first reply takes hours, the fastest competitor has already won the conversation."
         />
+
+        {/* Capability chips */}
+        <div className="mt-10 flex flex-wrap justify-center gap-2.5">
+          {capabilities.map((cap) => (
+            <span
+              key={cap}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-panel/50 px-3.5 py-2 text-[13px] text-silver transition-colors duration-200 hover:border-accent/40"
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-accent-glow" />
+              {cap}
+            </span>
+          ))}
+        </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-2">
           {/* Hover lift/glow lives on the INNER div — ScrollReveal leaves an
