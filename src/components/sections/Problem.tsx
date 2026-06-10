@@ -20,7 +20,7 @@ const withAvenor = [
 
 export default function Problem() {
   return (
-    <section className="bg-navy-deep py-28 md:py-40">
+    <section className="section-pad bg-navy-deep">
       <Container>
         <SectionHeading
           eyebrow="Where growth leaks"
@@ -28,20 +28,17 @@ export default function Problem() {
           description="Customers message at night, on weekends, and long after you have closed. If the first reply takes hours, the fastest competitor has already won the conversation."
         />
 
-        <div className="mt-14 grid gap-6 md:grid-cols-2">
-          {/* Hover lift/glow lives on the INNER div — ScrollReveal leaves an
-              inline transform on its own node, which would override a hover
-              translate placed on the same element. */}
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
           <ScrollReveal className="h-full">
-            <div className="h-full rounded-2xl border border-white/10 bg-white/[0.02] p-8 transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.03] hover:shadow-[0_28px_60px_-34px_rgba(0,0,0,0.85),0_0_44px_-30px_rgba(255,255,255,0.18)]">
-              <h3 className="mb-6 flex items-center gap-2 font-display text-lg font-semibold text-silver">
-                <span className="text-slate">Without a system</span>
+            <div className="premium-card premium-card-hover h-full p-7">
+              <h3 className="mb-5 font-display text-base font-medium text-silver">
+                Without a system
               </h3>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-2.5">
                 {without.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-slate">
-                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-slate/30">
-                      <span className="h-1 w-1 rounded-full bg-slate/60" />
+                  <li key={item} className="flex items-center gap-3 text-body-sm text-slate">
+                    <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border border-slate/25">
+                      <span className="h-0.5 w-0.5 rounded-full bg-slate/50" />
                     </span>
                     {item}
                   </li>
@@ -51,15 +48,15 @@ export default function Problem() {
           </ScrollReveal>
 
           <ScrollReveal delay={0.1} className="h-full">
-            <div className="h-full rounded-2xl border border-accent/25 bg-accent/[0.06] p-8 shadow-glow transition-all duration-300 hover:-translate-y-1 hover:border-accent/45 hover:shadow-[0_0_90px_-18px_rgba(59,130,246,0.6)]">
-              <h3 className="mb-6 flex items-center gap-2 font-display text-lg font-semibold text-ivory">
-                <span className="text-accent-glow">With Avenor</span>
+            <div className="h-full rounded-card border border-accent/20 bg-accent/[0.04] p-7 shadow-inset transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-glow">
+              <h3 className="mb-5 font-display text-base font-medium text-accent-glow">
+                With Avenor
               </h3>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col gap-2.5">
                 {withAvenor.map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-ivory/90">
-                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent-glow">
-                      <svg viewBox="0 0 20 20" fill="none" className="h-2.5 w-2.5" aria-hidden>
+                  <li key={item} className="flex items-center gap-3 text-body-sm text-ivory/90">
+                    <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-accent/12 text-accent-glow">
+                      <svg viewBox="0 0 20 20" fill="none" className="h-2 w-2" aria-hidden>
                         <path
                           d="M4 10.5 8 14 16 6"
                           stroke="currentColor"
@@ -77,7 +74,7 @@ export default function Problem() {
           </ScrollReveal>
         </div>
 
-        <p className="mx-auto mt-10 max-w-2xl text-center font-display text-lg font-medium text-ivory sm:text-xl">
+        <p className="mx-auto mt-8 max-w-xl text-center font-display text-base font-medium text-ivory sm:text-lg">
           Avenor gives your team a clear path{" "}
           <span className="text-gradient">from inquiry to conversation</span>.
         </p>

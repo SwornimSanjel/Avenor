@@ -43,10 +43,10 @@ const testimonials: Testimonial[] = []; // TODO: add real, permissioned testimon
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <figure className="rounded-2xl border border-white/10 bg-panel/50 p-7">
-      <blockquote className="text-sm leading-relaxed text-ivory/90">&ldquo;{t.quote}&rdquo;</blockquote>
-      <figcaption className="mt-4 text-sm">
-        <span className="font-semibold text-ivory">{t.name}</span>
+    <figure className="premium-card p-6">
+      <blockquote className="text-body-sm leading-relaxed text-ivory/90">&ldquo;{t.quote}&rdquo;</blockquote>
+      <figcaption className="mt-3 text-body-sm">
+        <span className="font-medium text-ivory">{t.name}</span>
         <span className="text-slate"> · {t.role}</span>
       </figcaption>
     </figure>
@@ -55,7 +55,7 @@ function TestimonialCard({ t }: { t: Testimonial }) {
 
 function Badge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-0.5 text-[10px] font-medium uppercase tracking-wide text-slate">
+    <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2 py-0.5 text-[9px] font-medium uppercase tracking-wide text-slate">
       {children}
     </span>
   );
@@ -69,7 +69,7 @@ function Badge({ children }: { children: React.ReactNode }) {
 function DemoShot({ src, alt, label }: { src: string; alt: string; label: string }) {
   return (
     <figure>
-      <div className="relative aspect-[16/10] overflow-hidden rounded-xl border border-white/10 bg-ink">
+      <div className="relative aspect-[16/10] overflow-hidden rounded-lg border border-white/[0.06] bg-ink">
         <div className="absolute inset-0 grid place-items-center px-4 text-center">
           <span className="text-xs font-medium uppercase tracking-[0.18em] text-slate/50">{label}</span>
         </div>
@@ -93,7 +93,7 @@ function DemoShot({ src, alt, label }: { src: string; alt: string; label: string
 
 export default function Proof() {
   return (
-    <section id="proof" className="scroll-mt-24 bg-navy-deep py-28 md:py-40">
+    <section id="proof" className="section-pad scroll-mt-24 bg-navy-deep">
       <Container>
         <SectionHeading
           eyebrow="Proof"
@@ -102,33 +102,32 @@ export default function Proof() {
         />
 
         {/* ── Block A — Capability proof ─────────────────────────────────── */}
-        <ScrollReveal className="mt-14 flex flex-wrap items-center gap-x-3 gap-y-2">
-          <h3 className="font-display text-lg font-semibold text-ivory">
+        <ScrollReveal className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-2">
+          <h3 className="font-display text-base font-medium text-ivory">
             What the system is built to do
           </h3>
           <Badge>Targets, not results</Badge>
         </ScrollReveal>
-        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-slate">
+        <p className="mt-2 max-w-xl text-body-sm leading-relaxed text-slate">
           These are the design targets every Avenor system is built and tuned to hit — not averaged
           client outcomes.
         </p>
 
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-3">
           {capabilities.map((c, i) => (
             <ScrollReveal key={c.sub} delay={i * 0.08} className="h-full">
-              <div className="h-full rounded-2xl border border-white/10 bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40">
-                <p className="font-display text-3xl font-bold text-accent-glow sm:text-[2rem]">
+              <div className="premium-card premium-card-hover h-full p-6 hover:border-accent/20">
+                <p className="font-display text-2xl font-semibold text-accent-glow sm:text-[1.75rem]">
                   {c.lead}
                   <CountUp to={c.to} suffix={c.suffix} duration={1200} />
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-slate">{c.sub}</p>
+                <p className="mt-2 text-body-sm leading-relaxed text-slate">{c.sub}</p>
               </div>
             </ScrollReveal>
           ))}
         </div>
 
-        {/* Demo screenshots */}
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
           {demoShots.map((s, i) => (
             <ScrollReveal key={s.src} delay={i * 0.08}>
               <DemoShot src={s.src} alt={s.alt} label={s.label} />
@@ -138,66 +137,62 @@ export default function Proof() {
 
         {/* ── Block B — Our promise (collective; the team is introduced once,
             in the Team section, so this stays a brand-level commitment) ──── */}
-        <ScrollReveal className="relative mt-6 overflow-hidden rounded-2xl border border-accent/30 bg-panel-light p-7 shadow-glow sm:p-9">
+        <ScrollReveal className="relative mt-5 overflow-hidden rounded-card border border-accent/20 bg-panel-light p-6 shadow-glow sm:p-7">
           <span
             aria-hidden
-            className="pointer-events-none absolute -right-10 -top-12 h-32 w-32 rounded-full bg-iris/15 blur-[70px]"
+            className="pointer-events-none absolute -right-10 -top-12 h-28 w-28 rounded-full bg-iris/10 blur-[60px]"
           />
-          <div className="relative flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-panel-light shadow-card">
-              <Mark className="h-5 w-5 text-ivory" />
+          <div className="relative flex items-center gap-2.5">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-panel-light shadow-inset">
+              <Mark className="h-4 w-4 text-ivory" />
             </span>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+            <p className="text-[10px] font-medium uppercase tracking-eyebrow text-accent">
               Our promise
             </p>
           </div>
 
-          <p className="relative mt-4 max-w-2xl text-sm leading-relaxed text-ivory/90">
+          <p className="relative mt-3.5 max-w-xl text-body-sm leading-relaxed text-ivory/90">
             We guarantee the parts we control: your system delivered and live, fast replies to
             inbound inquiries, every lead tracked, and clear reporting you can see. We do not promise
             guaranteed sales — that depends on your offer, your pricing, and how your team follows
             up. We commit to the system; you stay in control of the close.
           </p>
 
-          <div className="relative mt-5 flex flex-wrap gap-2">
+          <div className="relative mt-4 flex flex-wrap gap-1.5">
             {["System delivery", "Response speed", "Lead tracking", "Reporting"].map((g) => (
               <span
                 key={g}
-                className="rounded-full border border-accent/30 bg-accent/[0.06] px-3 py-1 text-xs text-ivory/90"
+                className="rounded-full border border-accent/20 bg-accent/[0.05] px-2.5 py-0.5 text-[11px] text-ivory/90"
               >
                 ✓ {g}
               </span>
             ))}
-            <span className="rounded-full border border-white/10 bg-white/[0.02] px-3 py-1 text-xs text-slate">
+            <span className="rounded-full border border-white/[0.08] bg-white/[0.02] px-2.5 py-0.5 text-[11px] text-slate">
               ✕ Guaranteed sales
             </span>
           </div>
 
-          <p className="relative mt-5 text-sm font-medium text-slate">— The Avenor team</p>
+          <p className="relative mt-4 text-body-sm font-medium text-slate">— The Avenor team</p>
         </ScrollReveal>
 
-        {/* ── Block C — Founding-client frame ────────────────────────────── */}
-        <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
-          <ScrollReveal className="rounded-2xl border border-white/10 bg-panel/50 p-7">
-            <h3 className="font-display text-lg font-semibold text-ivory">
+        <div className="mt-5 grid gap-4 lg:grid-cols-[1.4fr_1fr]">
+          <ScrollReveal className="premium-card p-6">
+            <h3 className="font-display text-base font-medium text-ivory">
               Founding clients, this quarter
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate">
+            <p className="mt-2 text-body-sm leading-relaxed text-slate">
               We are onboarding a limited number of founding clients this quarter with tailored setup
               support, in exchange for a case study. You get hands-on attention from the people who
               build the system; we earn a real, permissioned result to show.
             </p>
           </ScrollReveal>
 
-          <ScrollReveal
-            delay={0.1}
-            className="flex flex-col rounded-2xl border border-white/10 bg-panel/50 p-7"
-          >
-            <div className="mb-3 flex items-center justify-between gap-3">
-              <h3 className="font-display text-lg font-semibold text-ivory">Case studies</h3>
+          <ScrollReveal delay={0.1} className="premium-card flex flex-col p-6">
+            <div className="mb-2.5 flex items-center justify-between gap-3">
+              <h3 className="font-display text-base font-medium text-ivory">Case studies</h3>
               <Badge>Coming soon</Badge>
             </div>
-            <p className="text-sm leading-relaxed text-slate">
+            <p className="text-body-sm leading-relaxed text-slate">
               Real, permissioned client results will appear here as our founding clients complete
               their first cycles. We will never publish numbers we cannot stand behind.
             </p>
@@ -215,8 +210,8 @@ export default function Proof() {
       </Container>
 
       {/* Technology band — full-bleed, edge-to-edge marquee with top/bottom hairlines only */}
-      <div className="mt-20 border-y border-white/10 py-12 md:mt-28 md:py-14">
-        <p className="mb-9 text-center text-xs font-medium uppercase tracking-[0.3em] text-slate/80">
+      <div className="mt-16 border-y border-white/[0.06] py-10 md:mt-20 md:py-12">
+        <p className="mb-7 text-center text-[10px] font-medium uppercase tracking-eyebrow text-slate/70">
           Built on technology you already trust
         </p>
         <LogoMarquee />

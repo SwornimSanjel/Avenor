@@ -64,34 +64,32 @@ export default function Contact() {
   }
 
   const fieldClass =
-    "w-full rounded-lg border border-white/15 bg-white/[0.03] px-4 py-3 text-sm text-ivory placeholder:text-slate/70 transition-colors hover:border-white/25 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent";
-  const labelClass = "mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate";
+    "w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 py-2.5 text-body-sm text-ivory shadow-inset placeholder:text-slate/60 transition-colors hover:border-white/[0.14] focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/40";
+  const labelClass = "mb-1 block text-[10px] font-medium uppercase tracking-eyebrow text-slate";
 
   return (
-    <section id="contact" className="scroll-mt-24 bg-navy-deep py-28 md:py-40">
-      <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
-        <ScrollReveal className="flex flex-col gap-6">
-          <span className="text-xs font-semibold uppercase tracking-[0.35em] text-accent">
-            System audit
-          </span>
-          <h2 className="font-display text-3xl font-bold leading-tight text-ivory sm:text-4xl">
+    <section id="contact" className="section-pad scroll-mt-24 bg-navy-deep">
+      <Container className="grid gap-10 lg:grid-cols-[1fr_1.1fr]">
+        <ScrollReveal className="flex flex-col gap-5">
+          <span className="eyebrow">System audit</span>
+          <h2 className="font-display text-display-sm font-semibold text-ivory md:text-display-md lg:text-display-lg">
             See where your inquiries are leaking.
           </h2>
-          <p className="text-base leading-relaxed text-slate">
+          <p className="text-body leading-relaxed text-slate">
             In one short call, we map how inquiries enter your business, how fast they get handled,
             and where automation can improve response, qualification, and follow-up.
           </p>
 
-          <div className="mt-2 flex flex-col gap-3 rounded-2xl border border-white/10 bg-ink/40 p-6">
-            <p className="text-xs uppercase tracking-[0.2em] text-slate">Founding-client slots</p>
-            <p className="text-sm leading-relaxed text-ivory/85">
+          <div className="mt-1 flex flex-col gap-2.5 rounded-card border border-white/[0.06] bg-ink/30 p-5 shadow-inset">
+            <p className="text-[10px] uppercase tracking-eyebrow text-slate">Founding-client slots</p>
+            <p className="text-body-sm leading-relaxed text-ivory/85">
               We are onboarding a limited number of early businesses with tailored setup support
               while we build our portfolio. If your team depends on inquiries, follow-up, and lead
               quality, this audit will show where the system can improve.
             </p>
           </div>
 
-          <p className="flex items-start gap-2 text-sm leading-relaxed text-slate">
+          <p className="flex items-start gap-2 text-body-sm leading-relaxed text-slate">
             <span className="mt-0.5 text-accent-glow">▸</span>
             <span>
               <span className="text-silver">Best fit:</span> businesses that receive inquiries
@@ -100,7 +98,7 @@ export default function Contact() {
             </span>
           </p>
 
-          <div className="mt-2 flex flex-col gap-2 text-sm text-slate">
+          <div className="mt-1 flex flex-col gap-1.5 text-body-sm text-slate">
             <a href={`mailto:${site.contact.email}`} className="hover:text-accent-glow">
               {site.contact.email}
             </a>
@@ -110,12 +108,12 @@ export default function Contact() {
 
         <ScrollReveal delay={0.1}>
           {status === "success" ? (
-            <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-accent/30 bg-accent/[0.06] p-10 text-center">
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-2xl text-ink">
+            <div className="flex h-full flex-col items-center justify-center rounded-card border border-accent/20 bg-accent/[0.04] p-8 text-center shadow-inset">
+              <div className="mb-3.5 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-xl text-ink">
                 ✓
               </div>
-              <h3 className="font-display text-xl font-semibold text-ivory">Request received</h3>
-              <p className="mt-2 max-w-sm text-sm text-slate">
+              <h3 className="font-display text-lg font-semibold text-ivory">Request received</h3>
+              <p className="mt-2 max-w-sm text-body-sm text-slate">
                 Thanks, we will review your inquiry flow and get back to you shortly. Keep an eye on
                 your inbox.
               </p>
@@ -130,9 +128,9 @@ export default function Contact() {
           ) : (
             <form
               onSubmit={handleSubmit}
-              className="rounded-2xl border border-white/10 bg-ink/40 p-6 sm:p-8"
+              className="rounded-card border border-white/[0.06] bg-ink/30 p-5 shadow-inset sm:p-6"
             >
-              <div className="grid gap-5 sm:grid-cols-2">
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div>
                   <label htmlFor="name" className={labelClass}>
                     Your name
@@ -177,7 +175,7 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="mt-5 grid gap-5">
+              <div className="mt-4 grid gap-4">
                 <SelectField
                   id="improve"
                   label="What do you want to improve first?"
@@ -192,7 +190,7 @@ export default function Contact() {
                 />
               </div>
 
-              <div className="mt-5">
+              <div className="mt-4">
                 <label htmlFor="message" className={labelClass}>
                   What happens after someone inquires?
                 </label>
@@ -243,11 +241,11 @@ export default function Contact() {
                 </div>
               )}
 
-              <ActionButton type="submit" className="mt-6 w-full" disabled={status === "submitting"}>
+              <ActionButton type="submit" className="mt-5 w-full" disabled={status === "submitting"}>
                 {status === "submitting" ? "Sending…" : "Book my system audit"}
               </ActionButton>
 
-              <p className="mt-4 text-center text-xs text-slate">
+              <p className="mt-3 text-center text-[11px] text-slate/80">
                 We only use this information to prepare for your audit. Sensitive business details can
                 be discussed on the call.
               </p>
@@ -332,7 +330,7 @@ function SelectField({
 
   return (
     <div ref={wrapRef} className="relative">
-      <label htmlFor={id} className="mb-1.5 block text-xs font-medium uppercase tracking-wide text-slate">
+      <label htmlFor={id} className="mb-1 block text-[10px] font-medium uppercase tracking-eyebrow text-slate">
         {label}
       </label>
 
@@ -343,7 +341,7 @@ function SelectField({
         aria-expanded={open}
         onClick={() => (open ? setOpen(false) : openMenu())}
         onKeyDown={onTriggerKeyDown}
-        className={`relative w-full rounded-lg border border-white/15 bg-white/[0.03] px-4 py-3 pr-10 text-left text-sm transition-colors hover:border-white/25 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent ${
+        className={`relative w-full rounded-lg border border-white/[0.08] bg-white/[0.02] px-3.5 py-2.5 pr-10 text-left text-body-sm shadow-inset transition-colors hover:border-white/[0.14] focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/40 ${
           value ? "text-ivory" : "text-slate/70"
         }`}
       >
@@ -377,7 +375,7 @@ function SelectField({
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.15, ease: "easeOut" }}
-          className="absolute left-0 right-0 top-full z-30 mt-2 max-h-64 overflow-y-auto rounded-xl border border-white/10 bg-ink p-1.5 shadow-card"
+          className="absolute left-0 right-0 top-full z-30 mt-1.5 max-h-64 overflow-y-auto rounded-lg border border-white/[0.08] bg-ink p-1 shadow-card"
         >
             {options.map((opt, i) => {
               const selected = opt === value;

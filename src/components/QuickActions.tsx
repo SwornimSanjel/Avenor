@@ -52,7 +52,7 @@ export default function QuickActions() {
           initial={{ opacity: 0, y: 12, scale: 0.97 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mb-3 w-[20rem] max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-2xl border border-white/12 bg-ink/95 shadow-card backdrop-blur-xl"
+          className="relative mb-3 w-[19rem] max-w-[calc(100vw-2.5rem)] overflow-hidden rounded-card border border-white/[0.08] bg-ink/95 shadow-card backdrop-blur-xl"
         >
           {/* top accent hairline + soft corner glow */}
           <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-px bg-accent-grad opacity-70" />
@@ -62,16 +62,16 @@ export default function QuickActions() {
           />
 
           {/* header */}
-          <div className="relative flex items-start justify-between gap-3 border-b border-white/10 px-5 py-4">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-[10px] border border-white/10 bg-panel-light shadow-card">
-                <Mark className="h-5 w-5 text-ivory" />
+          <div className="relative flex items-start justify-between gap-3 border-b border-white/[0.06] px-4 py-3.5">
+            <div className="flex items-center gap-2.5">
+              <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-panel-light shadow-inset">
+                <Mark className="h-4 w-4 text-ivory" />
               </span>
               <div>
-                <p className="font-display text-sm font-semibold leading-tight text-ivory">
+                <p className="font-display text-[13px] font-medium leading-tight text-ivory">
                   How can we help?
                 </p>
-                <p className="mt-0.5 text-xs leading-tight text-slate">Two ways to get started.</p>
+                <p className="mt-0.5 text-[11px] leading-tight text-slate">Two ways to get started.</p>
               </div>
             </div>
             <button
@@ -88,7 +88,7 @@ export default function QuickActions() {
           </div>
 
           {/* actions */}
-          <div className="relative flex flex-col gap-2 p-3">
+          <div className="relative flex flex-col gap-1.5 p-2.5">
             <ActionRow
               href="#contact"
               onClick={close}
@@ -115,7 +115,7 @@ export default function QuickActions() {
           </div>
 
           {/* footer — WhatsApp shortcut */}
-          <div className="relative border-t border-white/10 px-5 py-3">
+          <div className="relative border-t border-white/[0.06] px-4 py-2.5">
             <a
               href={whatsappLink()}
               target="_blank"
@@ -178,14 +178,14 @@ function ActionRow({
     <a
       href={href}
       onClick={onClick}
-      className="group/item flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-3 transition-colors duration-200 hover:border-accent/40 hover:bg-white/[0.06] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+      className="group/item flex items-center gap-2.5 rounded-lg border border-white/[0.08] bg-white/[0.02] p-2.5 transition-colors duration-200 hover:border-accent/25 hover:bg-white/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
     >
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-accent/15 text-accent-glow">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md border border-white/[0.08] bg-accent/10 text-accent-glow">
         {children}
       </span>
       <span className="min-w-0 flex-1">
-        <span className="block text-sm font-semibold text-ivory">{title}</span>
-        <span className="block truncate text-xs text-slate">{desc}</span>
+        <span className="block text-[13px] font-medium text-ivory">{title}</span>
+        <span className="block truncate text-[11px] text-slate">{desc}</span>
       </span>
       <svg
         viewBox="0 0 20 20"

@@ -31,7 +31,7 @@ export default function LogoMarquee() {
             <span
               key={`${copy}-${name}`}
               aria-hidden={copy === 1}
-              className="flex shrink-0 items-center gap-3 px-8 font-display text-2xl font-semibold tracking-tight text-slate/55 transition-colors duration-200 hover:text-silver sm:px-12 sm:text-3xl"
+              className="flex shrink-0 items-center gap-2.5 px-8 font-display text-xl font-medium tracking-tight text-slate/45 transition-colors duration-200 hover:text-silver/80 sm:px-10 sm:text-2xl"
             >
               <span aria-hidden className="h-2 w-2 rounded-full bg-slate/40" />
               {name}
