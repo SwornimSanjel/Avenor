@@ -152,6 +152,14 @@
     animation-play-state: running;
   }
 
+  /* Logo marquee — scrolls on idle, pauses while any logo is hovered. */
+  .marquee-track {
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
+
   /* Mouse-tracking spotlight (SystemFlow only). Hidden for reduced-motion
      users and on touch devices (no hover). */
   .flow-spotlight {
