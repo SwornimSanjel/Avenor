@@ -1,13 +1,8 @@
+import Image from "next/image";
 import Container from "../Container";
 import SectionHeading from "../SectionHeading";
 import ScrollReveal from "../ScrollReveal";
 import { founders } from "@/lib/content";
-
-/** First two letters of the first name, first letter capitalised (e.g. "Sw"). */
-function initials(name: string) {
-  const first = name.split(" ")[0] ?? "";
-  return first.slice(0, 2).replace(/^./, (c) => c.toUpperCase());
-}
 
 /** LinkedIn link — renders only when a URL is provided. */
 function LinkedIn({ url, name }: { url?: string; name: string }) {
@@ -37,54 +32,51 @@ export default function Team() {
           description="A small, senior team. Every founding client works directly with the three of us — no hand-offs, no juniors."
         />
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {founders.map((person, i) => (
             <ScrollReveal key={person.name} delay={i * 0.08} className="h-full">
               <div
-                className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-panel/50 p-7 transition-all duration-200 hover:-translate-y-0.5 ${
+                className={`group relative flex h-full transform-gpu flex-col overflow-hidden rounded-2xl bg-panel shadow-card ring-1 transition-all duration-300 ease-out hover:-translate-y-1.5 ${
                   person.featured
-                    ? "border-accent/30 shadow-glow hover:border-accent/50"
-                    : "border-white/10 hover:border-accent/40"
+                    ? "ring-accent/45 hover:ring-accent/70"
+                    : "ring-white/[0.06] hover:ring-accent/35"
                 }`}
               >
-                {person.featured && (
-                <span
-                  aria-hidden
-                  className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-iris/15 blur-[60px]"
-                />
-              )}
-
-              <div className="relative mb-5 flex items-center gap-4">
-                <span
-                  className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border font-display text-base font-bold ${
-                    person.featured
-                      ? "border-white/10 bg-accent/15 text-accent-glow"
-                      : "border-white/10 bg-white/[0.03] text-silver"
-                  }`}
-                >
-                  {initials(person.name)}
-                </span>
-                <div className="min-w-0">
-                  <h3 className="font-display text-lg font-semibold text-ivory">{person.name}</h3>
-                  <span
-                    className={`mt-1 inline-flex rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${
-                      person.featured
-                        ? "border-accent/30 bg-accent/[0.06] text-accent-glow"
-                        : "border-white/10 bg-white/[0.03] text-slate"
-                    }`}
-                  >
-                    {person.role}
-                  </span>
+                {/* Photo — melts seamlessly into the card */}
+                <div className="relative aspect-[3/4] w-full transform-gpu overflow-hidden [backface-visibility:hidden]">
+                  <Image
+                    src={person.photo}
+                    alt={`${person.name}, ${person.role} at Avenor`}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="transform-gpu object-cover transition-transform duration-700 ease-out will-change-transform [backface-visibility:hidden] group-hover:scale-[1.05]"
+                    style={{ objectPosition: person.photoPosition ?? "center" }}
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-panel via-panel/70 to-transparent"
+                  />
                 </div>
-              </div>
 
-              <p className="relative flex-1 text-sm leading-relaxed text-slate">{person.focus}</p>
-
-                {person.linkedin && (
-                  <div className="relative mt-5">
-                    <LinkedIn url={person.linkedin} name={person.name} />
+                {/* Info — pulled up 1px to guarantee no seam line under the photo */}
+                <div className="relative z-10 -mt-px flex flex-1 flex-col bg-panel px-6 pb-6 pt-3">
+                  <h3 className="font-display text-xl font-semibold text-ivory">{person.name}</h3>
+                  <div className="mt-2.5 flex items-center gap-2.5">
+                    <span
+                      aria-hidden
+                      className="h-px w-6 shrink-0 bg-accent transition-all duration-300 ease-out group-hover:w-10"
+                    />
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-accent-glow">
+                      {person.role}
+                    </span>
                   </div>
-                )}
+
+                  {person.linkedin && (
+                    <div className="mt-5">
+                      <LinkedIn url={person.linkedin} name={person.name} />
+                    </div>
+                  )}
+                </div>
               </div>
             </ScrollReveal>
           ))}
