@@ -1,12 +1,13 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Container from "../Container";
 import SectionHeading from "../SectionHeading";
 import ScrollReveal from "../ScrollReveal";
 import LogoMarquee from "../LogoMarquee";
 import CountUp from "../CountUp";
 import Mark from "../Mark";
-import BrowserFrame from "../BrowserFrame";
 import AmbientBackground from "../AmbientBackground";
 
 /* ── Block A · Capability targets — DESIGN GOALS, not measured client results.
@@ -18,12 +19,22 @@ const capabilities: Capability[] = [
   { to: 24, suffix: " / 7", sub: "Coverage while your team is offline or asleep." },
 ];
 
-/* Selected work — real clients, shown as framed screenshots (no metrics).
-   Drop the real screenshots at the src paths below. */
-const selectedWork = [
+/* Selected work — real clients shown as compact site cards. Drop a real .webp
+   at the `src` path and the card swaps the monogram placeholder for the
+   screenshot automatically, with zero code change. */
+type WorkItem = {
+  name: string;
+  sector: string;
+  url: string;
+  domain: string;
+  src: string;
+  alt: string;
+};
+
+const selectedWork: WorkItem[] = [
   {
     name: "Sports Center Nepal",
-    sector: "Sports & fitness, Kathmandu",
+    sector: "Sports & fitness · Kathmandu",
     url: "https://sportscenter.com.np/",
     domain: "sportscenter.com.np",
     src: "/proof/client-sportscenter.webp",
@@ -31,13 +42,80 @@ const selectedWork = [
   },
   {
     name: "Mountain Routes",
-    sector: "Adventure travel, Nepal",
+    sector: "Adventure travel · Nepal",
     url: "https://mountainroutes.com/",
     domain: "mountainroutes.com",
     src: "/proof/client-mountainroutes.webp",
     alt: "Mountain Routes website homepage",
   },
 ];
+
+/**
+ * A compact site card: thin macOS chrome bar, a 16:10 screenshot, and a footer
+ * strip. If the screenshot is missing (or fails to load) it falls back to a
+ * quiet monogram placeholder instead of a big empty browser frame.
+ */
+function WorkCard({ item }: { item: WorkItem }) {
+  const [failed, setFailed] = useState(false);
+  const monogram = item.name.charAt(0).toUpperCase();
+
+  return (
+    <div className="border-sweep group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-panel/50 shadow-card transition-colors duration-200 hover:border-accent/40">
+      {/* Thin macOS-style chrome */}
+      <div className="flex h-8 shrink-0 items-center border-b border-white/10 px-3">
+        <div className="flex items-center gap-1.5 opacity-30">
+          <span className="h-2 w-2 rounded-full bg-white" />
+          <span className="h-2 w-2 rounded-full bg-white" />
+          <span className="h-2 w-2 rounded-full bg-white" />
+        </div>
+        <span className="mx-auto max-w-[70%] truncate rounded-md bg-white/[0.04] px-2.5 py-0.5 text-[11px] text-slate">
+          {item.domain}
+        </span>
+        <span aria-hidden className="w-[34px] shrink-0" />
+      </div>
+
+      {/* Screenshot, with a quiet monogram placeholder underneath as fallback */}
+      <div className="relative aspect-[16/10] overflow-hidden bg-panel-light">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2.5">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/[0.1] blur-[45px]"
+          />
+          <span className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.03] font-display text-lg font-semibold text-ivory">
+            {monogram}
+          </span>
+          <span className="relative text-xs text-slate">{item.domain}</span>
+        </div>
+        {!failed && (
+          <Image
+            src={item.src}
+            alt={item.alt}
+            fill
+            sizes="(min-width: 640px) 45vw, 90vw"
+            className="object-cover"
+            onError={() => setFailed(true)}
+          />
+        )}
+      </div>
+
+      {/* Footer strip */}
+      <div className="flex items-start justify-between gap-3 p-5">
+        <div>
+          <h4 className="font-display text-lg font-semibold text-ivory">{item.name}</h4>
+          <p className="mt-0.5 text-sm text-slate">{item.sector}</p>
+        </div>
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="shrink-0 text-xs text-silver underline-offset-4 transition-colors hover:text-accent-glow hover:underline"
+        >
+          Visit site ↗
+        </a>
+      </div>
+    </div>
+  );
+}
 
 /*
  * Testimonials are intentionally EMPTY. Avernik is pre-revenue and onboarding
@@ -145,29 +223,18 @@ export default function Proof() {
           <p className="relative mt-5 text-sm font-medium text-slate">— The Avernik team</p>
         </ScrollReveal>
 
-        {/* ── Selected work — real clients, framed screenshots, no metrics ── */}
+        {/* ── Selected work — compact live-site cards ────────────────────── */}
         <ScrollReveal className="mt-14 flex flex-wrap items-center gap-x-3 gap-y-2">
           <h3 className="font-display text-lg font-semibold text-ivory">Selected work</h3>
           <Badge>Live sites</Badge>
         </ScrollReveal>
+        <p className="mt-2 text-sm leading-relaxed text-slate">
+          Real businesses we&apos;ve built and shipped for.
+        </p>
         <div className="mt-6 grid gap-6 sm:grid-cols-2">
           {selectedWork.map((c, i) => (
-            <ScrollReveal key={c.url} delay={i * 0.08}>
-              <BrowserFrame url={c.domain} src={c.src} alt={c.alt} />
-              <div className="mt-4 flex items-start justify-between gap-3">
-                <div>
-                  <h4 className="font-display text-lg font-semibold text-ivory">{c.name}</h4>
-                  <p className="mt-0.5 text-sm text-slate">{c.sector}</p>
-                </div>
-                <a
-                  href={c.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0 text-xs text-silver underline-offset-4 transition-colors hover:text-accent-glow hover:underline"
-                >
-                  Visit site ↗
-                </a>
-              </div>
+            <ScrollReveal key={c.url} delay={i * 0.08} className="h-full">
+              <WorkCard item={c} />
             </ScrollReveal>
           ))}
         </div>
