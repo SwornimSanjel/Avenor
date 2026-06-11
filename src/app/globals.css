@@ -205,6 +205,65 @@
   }
 }
 
+/* InquiryOrbit — slow ring rotation, gently pulsing core + feed-lines. Frozen
+   to the formed resting state for reduced-motion users by the global rule. */
+.orbit-spin {
+  animation: orbitSpin linear infinite;
+}
+.orbit-spin-rev {
+  animation: orbitSpin linear infinite reverse;
+}
+.orbit-40 {
+  animation-duration: 40s;
+}
+.orbit-60 {
+  animation-duration: 60s;
+}
+.orbit-80 {
+  animation-duration: 80s;
+}
+.orbit-core {
+  animation: orbitCorePulse 4.5s ease-in-out infinite;
+  transform-origin: 300px 300px;
+}
+.orbit-line {
+  animation: orbitLinePulse 3.6s ease-in-out infinite;
+}
+.orbit-line-2 {
+  animation-delay: 1.2s;
+}
+.orbit-line-3 {
+  animation-delay: 2.4s;
+}
+@keyframes orbitSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes orbitCorePulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.88;
+  }
+}
+@keyframes orbitLinePulse {
+  0%,
+  100% {
+    stroke-opacity: 0.28;
+  }
+  50% {
+    stroke-opacity: 0.06;
+  }
+}
+
 @property --angle {
   syntax: "<angle>";
   initial-value: 0deg;

@@ -3,7 +3,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import Container from "../Container";
 import { LinkButton } from "../Button";
-import AiInbox from "../AiInbox";
+import InquiryOrbit from "../InquiryOrbit";
 import AmbientBackground from "../AmbientBackground";
 
 const fadeUp = {
@@ -64,15 +64,15 @@ export default function Hero() {
           </a>
         </motion.div>
 
-        {/* 5. Looping AI inbox mockup — below the text, centered, inviting scroll. */}
+        {/* 5. Abstract "inquiry orbit" centerpiece — atmosphere, not a chat UI.
+            The live messenger demo lives lower down in #demo. */}
         <motion.div
           initial={reduce ? { opacity: 0 } : { opacity: 0, y: 28 }}
           animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-          className="mt-20 w-full max-w-5xl md:mt-24"
+          className="mt-16 w-full max-w-2xl md:mt-20"
         >
-          {/* Looping AI inbox mockup — shows the product doing its job. */}
-          <AiInbox />
+          <InquiryOrbit />
         </motion.div>
       </Container>
 
