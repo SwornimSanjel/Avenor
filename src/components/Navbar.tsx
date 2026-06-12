@@ -114,8 +114,8 @@ export default function Navbar() {
         transition={{ duration: 0.35, ease: "easeOut" }}
         className={`fixed left-4 right-4 top-3 z-50 mx-auto flex max-w-6xl items-center justify-between gap-6 rounded-full border py-2 pl-5 pr-2 backdrop-blur-xl transition-colors duration-300 sm:left-6 sm:right-6 sm:top-4 sm:pl-7 sm:pr-2.5 ${
           scrolled
-            ? "border-white/10 bg-[#161922]/95 shadow-[0_22px_70px_-28px_rgba(0,0,0,0.98),inset_0_1px_0_rgba(255,255,255,0.08)]"
-            : "border-white/10 bg-[#161922]/90 shadow-[0_16px_54px_-26px_rgba(0,0,0,0.96),inset_0_1px_0_rgba(255,255,255,0.08)]"
+            ? "border-[#34488a]/45 bg-[#0a1330]/94 shadow-[0_22px_70px_-28px_rgba(0,0,0,0.98),inset_0_1px_0_rgba(130,160,255,0.10)]"
+            : "border-[#34488a]/40 bg-[#0a1330]/85 shadow-[0_16px_54px_-26px_rgba(0,0,0,0.96),inset_0_1px_0_rgba(130,160,255,0.10)]"
         }`}
       >
         {/* Left: logo */}
@@ -134,7 +134,7 @@ export default function Navbar() {
                 onClick={(event) => handleNavClick(event, item.href)}
                 className={`rounded-full px-5 py-2.5 text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-ink ${
                   isActive
-                    ? "border border-white/10 bg-[#1c2233]/85 text-white shadow-inner"
+                    ? "border border-[#4359a0]/50 bg-[#16224d]/90 text-white shadow-[inset_0_1px_0_rgba(150,175,255,0.16)]"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
@@ -180,7 +180,7 @@ export default function Navbar() {
       {/* Mobile menu — its own fixed element (no transformed ancestor) so its
           glass blur also works correctly. */}
       {open && (
-        <div className="fixed left-4 right-4 top-[4.75rem] z-50 mx-auto max-w-6xl rounded-2xl border border-white/10 bg-[#161922]/95 p-3 backdrop-blur-2xl backdrop-saturate-150 md:hidden">
+        <div className="fixed left-4 right-4 top-[4.75rem] z-50 mx-auto max-w-6xl rounded-2xl border border-[#34488a]/40 bg-[#0a1330]/95 p-3 backdrop-blur-2xl backdrop-saturate-150 md:hidden">
           <div className="flex flex-col gap-1">
             {nav.map((item) => (
               <a
