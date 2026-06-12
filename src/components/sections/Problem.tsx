@@ -49,28 +49,16 @@ export default function Problem() {
               </span>
             </div>
 
-            {/* V/S badge — a glowing blue orb framed by concentric ripple
-                rings sitting on a soft radial bloom, matching the reference. */}
+            {/* V/S badge — compact Mach33-style: a deep-blue orb with one or
+                two tight, faint rings hugging it. No wide bloom or ripples. */}
             <span className="pointer-events-none absolute left-1/2 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center sm:h-14 sm:w-14">
-              {/* ambient blue bloom behind everything */}
-              <span
-                aria-hidden
-                className="absolute h-32 w-32 rounded-full bg-[radial-gradient(circle,rgba(45,91,255,0.5),rgba(45,91,255,0.12)_45%,transparent_72%)] blur-md sm:h-40 sm:w-40"
-              />
-              {/* concentric ripple rings, fainter as they expand */}
-              <span aria-hidden className="absolute h-[230%] w-[230%] rounded-full border border-[#6f8cff]/[0.08]" />
-              <span aria-hidden className="absolute h-[178%] w-[178%] rounded-full border border-[#6f8cff]/[0.16]" />
-              <span aria-hidden className="absolute h-[138%] w-[138%] rounded-full border border-[#6f8cff]/25" />
+              {/* two tight rings, just past the orb edge */}
+              <span aria-hidden className="absolute h-[132%] w-[132%] rounded-full border border-[#6f8cff]/10" />
+              <span aria-hidden className="absolute h-[116%] w-[116%] rounded-full border border-[#6f8cff]/20" />
 
-              {/* outer gradient ring — bright at the top, fading toward the bottom */}
-              <span className="relative flex h-full w-full items-center justify-center rounded-full bg-gradient-to-b from-[#aab9ff]/75 to-transparent p-px shadow-[0_0_34px_6px_rgba(45,91,255,0.45)]">
-                {/* dark gap between the fading ring and the orb */}
-                <span className="flex h-full w-full items-center justify-center rounded-full bg-[#070b16] p-[3px]">
-                  {/* vivid royal-blue orb — lit highlight top, deep blue edge */}
-                  <span className="flex h-full w-full items-center justify-center rounded-full bg-[radial-gradient(circle_at_50%_32%,#6f8cff,#2d5bff_52%,#1b34a6_100%)] text-[11px] font-semibold tracking-wide text-white shadow-[inset_0_1px_3px_rgba(255,255,255,0.35),0_0_14px_1px_rgba(45,91,255,0.65)] sm:text-[13px]">
-                    V/S
-                  </span>
-                </span>
+              {/* orb — deep navy-blue radial, dim glow kept close to the edge */}
+              <span className="relative flex h-full w-full items-center justify-center rounded-full bg-[radial-gradient(circle_at_50%_38%,#3552bd,#1f3490_55%,#101c54_100%)] text-[11px] font-semibold tracking-wide text-[#dfe5ff] shadow-[inset_0_1px_2px_rgba(190,205,255,0.28),0_0_12px_2px_rgba(45,91,255,0.3)] ring-1 ring-[#6f8cff]/30 sm:text-[13px]">
+                V/S
               </span>
             </span>
           </div>
