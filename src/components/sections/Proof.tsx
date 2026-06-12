@@ -204,7 +204,9 @@ export default function Proof() {
           </p>
         </ScrollReveal>
 
-        <ScrollReveal className="mt-20 text-center">
+        {/* Testimonials read as their own section — same 96/128px rhythm as
+            the gaps between top-level sections. */}
+        <ScrollReveal className="mt-24 text-center md:mt-32">
           <span className="text-[11px] font-medium uppercase tracking-[0.3em] text-slate">
             Testimonials
           </span>
